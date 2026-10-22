@@ -185,9 +185,19 @@ export function performChiSquareTest(history: readonly DailyLogEntry[]): ChiSqua
     }
   }
 
-  const df = (WEATHER_REGIMES.length - 1) * (SKIN_FEELS.length - 1); // 2 * 3 = 6
+  const activeRows = WEATHER_REGIMES.filter((r) => rowTotals[r] > 0).length;
+  const activeCols = SKIN_FEELS.filter((f) => colTotals[f] > 0).length;
+  const df = Math.max(1, (activeRows - 1) * (activeCols - 1));
   const pValue = regularizedUpperIncompleteGamma(df / 2, chiSquare / 2);
-  const criticalValue95 = 12.5916; // Standard critical value for df=6 at α=0.05
+  const CRITICAL_VALUES_95: Record<number, number> = {
+    1: 3.8415,
+    2: 5.9915,
+    3: 7.8147,
+    4: 9.4877,
+    5: 11.0705,
+    6: 12.5916,
+  };
+  const criticalValue95 = CRITICAL_VALUES_95[df] ?? 12.5916;
 
   return {
     chiSquare: Number(chiSquare.toFixed(4)),
@@ -454,6 +464,7 @@ export function performOneWayAnova(history: readonly DailyLogEntry[]): OneWayAno
 
   // Compute group-level statistics
   const groupStats: Record<string, AnovaGroupStat> = {};
+  const exactGroupMeans: Record<string, number> = {};
   let totalObservations = 0;
   let grandSum = 0;
   let activeGroupsCount = 0;
@@ -465,6 +476,7 @@ export function performOneWayAnova(history: readonly DailyLogEntry[]): OneWayAno
 
     if (n === 0) {
       groupStats[archetype] = { count: 0, mean: 0, variance: 0, stdDev: 0 };
+      exactGroupMeans[archetype] = 0;
       continue;
     }
 
@@ -472,6 +484,7 @@ export function performOneWayAnova(history: readonly DailyLogEntry[]): OneWayAno
     const sum = scores.reduce((acc, val) => acc + val, 0);
     grandSum += sum;
     const mean = sum / n;
+    exactGroupMeans[archetype] = mean;
 
     let varSum = 0;
     for (const val of scores) {
@@ -517,7 +530,7 @@ export function performOneWayAnova(history: readonly DailyLogEntry[]): OneWayAno
     const n = scores.length;
     if (n === 0) continue;
 
-    const groupMean = groupStats[archetype].mean;
+    const groupMean = exactGroupMeans[archetype];
     const meanDiff = groupMean - grandMean;
     ssBetween += n * meanDiff * meanDiff;
 

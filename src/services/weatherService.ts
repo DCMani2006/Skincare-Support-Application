@@ -92,7 +92,7 @@ export function classifyWeatherRegime(relativeHumidity: number): WeatherRegime {
  */
 export function classifyUVLevel(uvIndex: number): UVLevel {
   if (uvIndex < 3) return 'low';
-  if (uvIndex <= 5) return 'moderate';
+  if (uvIndex < 6) return 'moderate';
   return 'high';
 }
 

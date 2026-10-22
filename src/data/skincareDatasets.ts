@@ -428,15 +428,25 @@ export function evaluatePastHistoryAndAntidotes(
     (log) => log.userReport === 'stinging_irritated'
   );
 
-  // 2. Check if strong exfoliating acids or peels were prescribed recently
-  const usedStrongAcidRecently = sortedLogs.slice(0, 2).some(
-    (log) => log.prescribedArchetype === 'gentle_exfoliation'
-  );
+  // 2. Check if strong exfoliating acids or peels were prescribed recently (past 24-48h)
+  const isAcidLog = (log: DailyLogEntry): boolean =>
+    log.prescribedArchetype === 'gentle_exfoliation' ||
+    (log.activeIngredientsUsed?.some(
+      (ing) =>
+        ing.includes('Salicylic Acid') ||
+        ing.includes('Glycolic Acid') ||
+        ing.includes('Lactic Acid') ||
+        ing.includes('BHA') ||
+        ing.includes('AHA')
+    ) ??
+      false);
+
+  const usedStrongAcidRecently = sortedLogs.slice(0, 2).some(isAcidLog);
 
   // 3. Consecutive exfoliation count
   let consecutiveExfoliationCount = 0;
   for (const log of sortedLogs) {
-    if (log.prescribedArchetype === 'gentle_exfoliation') {
+    if (isAcidLog(log)) {
       consecutiveExfoliationCount++;
     } else {
       break;
