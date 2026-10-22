@@ -1,0 +1,119 @@
+@import "tailwindcss";
+@import "katex/dist/katex.min.css";
+
+@theme {
+  --color-cream: #FDFBF7;
+  --color-butter: #F7F2E7;
+  --color-oatmeal: #EFE8D8;
+  --color-card-white: #FFFFFF;
+  --color-sage: #A3B899;
+  --color-sage-light: #C9D7C2;
+  --color-forest: #5B7052;
+  --color-peach: #E8927C;
+  --color-peach-light: #FDE8E2;
+  --color-honey: #E9B872;
+  --color-honey-light: #FCF1DE;
+  --color-wood: #7C6044;
+  --color-wood-dark: #5A432D;
+  --color-walnut: #3D312A;
+  --color-bark: #6B5B52;
+  --color-taupe: #D4CEBF;
+
+  --font-sans: 'Nunito', 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Quicksand', 'Nunito', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+}
+
+@layer base {
+  * {
+    border-color: #D4CEBF;
+  }
+
+  body {
+    background-color: #FDFBF7;
+    color: #3D312A;
+    font-family: var(--font-sans);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    background-image: 
+      radial-gradient(#D4CEBF 0.85px, transparent 0.85px),
+      radial-gradient(#EFE8D8 0.85px, #FDFBF7 0.85px);
+    background-size: 24px 24px;
+    background-position: 0 0, 12px 12px;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: #3D312A;
+  }
+
+  /* Custom Cozy Scrollbars */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #F7F2E7;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #D4CEBF;
+    border-radius: 9999px;
+    border: 2px solid #F7F2E7;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #A3B899;
+  }
+}
+
+/* Cozy Retro Window & Card Utilities */
+.cozy-shadow-sm {
+  box-shadow: 0 3px 0 #D4CEBF;
+}
+
+.cozy-shadow {
+  box-shadow: 0 4px 0 #D4CEBF, 0 8px 24px rgba(91, 112, 82, 0.06);
+}
+
+.cozy-shadow-deep {
+  box-shadow: 0 6px 0 #D4CEBF, 0 12px 28px rgba(91, 112, 82, 0.1);
+}
+
+.cozy-shadow-forest {
+  box-shadow: 0 4px 0 #5B7052;
+}
+
+.cozy-shadow-peach {
+  box-shadow: 0 4px 0 #D97861;
+}
+
+.cozy-shadow-honey {
+  box-shadow: 0 4px 0 #CF9C52;
+}
+
+/* Wavy / Sticky note look */
+.cozy-speech-bubble {
+  position: relative;
+  background-color: #FEF9E7;
+  border: 2px solid #E9B872;
+}
+
+.cozy-speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 28px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #FEF9E7;
+}
+
+/* KaTeX custom colors for light theme */
+.katex {
+  color: #3D312A !important;
+}
+.katex-display {
+  margin: 0.5em 0 !important;
+}

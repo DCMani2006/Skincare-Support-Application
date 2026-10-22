@@ -1,0 +1,220 @@
+/**
+ * DermaSync: Adaptive Meteorological Skincare Planner
+ * Course: BAMAT207 (Probability & Statistics)
+ * Realistic Historical Telemetry & Feedback Logs for Validation
+ */
+
+import type { DailyLogEntry } from '../types/dermaSync';
+
+export const INITIAL_DAILY_LOGS: DailyLogEntry[] = [
+  {
+    dayIndex: 1,
+    date: '2026-10-01',
+    weather: {
+      temp: 24.2,
+      humidity: 28,
+      uvIndex: 7.2,
+      dewPoint: 4.8,
+      locationName: 'Scottsdale, AZ (Arid Desert)',
+      timestamp: '2026-10-01T08:00:00Z',
+    },
+    userReport: 'balanced',
+    prescribedArchetype: 'barrier_recovery',
+    satisfactionScore: 4.8,
+  },
+  {
+    dayIndex: 2,
+    date: '2026-10-02',
+    weather: {
+      temp: 27.5,
+      humidity: 22,
+      uvIndex: 8.5,
+      dewPoint: 2.1,
+      locationName: 'Scottsdale, AZ (Arid Desert)',
+      timestamp: '2026-10-02T08:00:00Z',
+    },
+    userReport: 'tight_dry',
+    prescribedArchetype: 'lightweight_hydration', // Too light for 22% RH => dry feedback
+    satisfactionScore: 2.8,
+  },
+  {
+    dayIndex: 3,
+    date: '2026-10-03',
+    weather: {
+      temp: 25.1,
+      humidity: 34,
+      uvIndex: 6.8,
+      dewPoint: 6.4,
+      locationName: 'Scottsdale, AZ (Arid Desert)',
+      timestamp: '2026-10-03T08:00:00Z',
+    },
+    userReport: 'balanced',
+    prescribedArchetype: 'deep_nourish',
+    satisfactionScore: 4.9,
+  },
+  {
+    dayIndex: 4,
+    date: '2026-10-04',
+    weather: {
+      temp: 22.0,
+      humidity: 30,
+      uvIndex: 7.0,
+      dewPoint: 3.5,
+      locationName: 'Scottsdale, AZ (Arid Desert)',
+      timestamp: '2026-10-04T08:00:00Z',
+    },
+    userReport: 'stinging_irritated',
+    prescribedArchetype: 'gentle_exfoliation', // Exfoliating in arid + high UV => irritation
+    satisfactionScore: 2.0,
+  },
+  {
+    dayIndex: 5,
+    date: '2026-10-05',
+    weather: {
+      temp: 19.4,
+      humidity: 52,
+      uvIndex: 3.8,
+      dewPoint: 9.3,
+      locationName: 'San Francisco, CA (Temperate Maritime)',
+      timestamp: '2026-10-05T08:00:00Z',
+    },
+    userReport: 'balanced',
+    prescribedArchetype: 'lightweight_hydration',
+    satisfactionScore: 4.7,
+  },
+  {
+    dayIndex: 6,
+    date: '2026-10-06',
+    weather: {
+      temp: 21.0,
+      humidity: 58,
+      uvIndex: 4.2,
+      dewPoint: 12.1,
+      locationName: 'San Francisco, CA (Temperate Maritime)',
+      timestamp: '2026-10-06T08:00:00Z',
+    },
+    userReport: 'balanced',
+    prescribedArchetype: 'gentle_exfoliation',
+    satisfactionScore: 4.6,
+  },
+  {
+    dayIndex: 7,
+    date: '2026-10-07',
+    weather: {
+      temp: 18.2,
+      humidity: 62,
+      uvIndex: 2.5,
+      dewPoint: 10.8,
+      locationName: 'Seattle, WA (Temperate Marine)',
+      timestamp: '2026-10-07T08:00:00Z',
+    },
+    userReport: 'balanced',
+    prescribedArchetype: 'barrier_recovery',
+    satisfactionScore: 4.5,
+  },
+  {
+    dayIndex: 8,
+    date: '2026-10-08',
+    weather: {
+      temp: 20.5,
+      humidity: 48,
+      uvIndex: 3.5,
+      dewPoint: 9.1,
+      locationName: 'Seattle, WA (Temperate Marine)',
+      timestamp: '2026-10-08T08:00:00Z',
+    },
+    userReport: 'balanced',
+    prescribedArchetype: 'lightweight_hydration',
+    satisfactionScore: 4.8,
+  },
+  {
+    dayIndex: 9,
+    date: '2026-10-09',
+    weather: {
+      temp: 29.8,
+      humidity: 82,
+      uvIndex: 9.0,
+      dewPoint: 26.2,
+      locationName: 'Miami, FL (Subtropical Humid)',
+      timestamp: '2026-10-09T08:00:00Z',
+    },
+    userReport: 'greasy_clogged',
+    prescribedArchetype: 'deep_nourish', // Heavy butter in 82% RH => grease/congestion
+    satisfactionScore: 2.2,
+  },
+  {
+    dayIndex: 10,
+    date: '2026-10-10',
+    weather: {
+      temp: 31.0,
+      humidity: 85,
+      uvIndex: 8.8,
+      dewPoint: 28.0,
+      locationName: 'Miami, FL (Subtropical Humid)',
+      timestamp: '2026-10-10T08:00:00Z',
+    },
+    userReport: 'balanced',
+    prescribedArchetype: 'pore_clarifying',
+    satisfactionScore: 4.9,
+  },
+  {
+    dayIndex: 11,
+    date: '2026-10-11',
+    weather: {
+      temp: 28.5,
+      humidity: 78,
+      uvIndex: 7.5,
+      dewPoint: 24.1,
+      locationName: 'Miami, FL (Subtropical Humid)',
+      timestamp: '2026-10-11T08:00:00Z',
+    },
+    userReport: 'balanced',
+    prescribedArchetype: 'lightweight_hydration',
+    satisfactionScore: 4.7,
+  },
+  {
+    dayIndex: 12,
+    date: '2026-10-12',
+    weather: {
+      temp: 32.2,
+      humidity: 88,
+      uvIndex: 9.4,
+      dewPoint: 29.8,
+      locationName: 'Miami, FL (Subtropical Humid)',
+      timestamp: '2026-10-12T08:00:00Z',
+    },
+    userReport: 'greasy_clogged',
+    prescribedArchetype: 'barrier_recovery', // Too occlusive for 88% humidity
+    satisfactionScore: 2.5,
+  },
+  {
+    dayIndex: 13,
+    date: '2026-10-13',
+    weather: {
+      temp: 26.4,
+      humidity: 45,
+      uvIndex: 5.1,
+      dewPoint: 13.5,
+      locationName: 'Austin, TX (Temperate Transitional)',
+      timestamp: '2026-10-13T08:00:00Z',
+    },
+    userReport: 'balanced',
+    prescribedArchetype: 'pore_clarifying',
+    satisfactionScore: 4.5,
+  },
+  {
+    dayIndex: 14,
+    date: '2026-10-14',
+    weather: {
+      temp: 23.0,
+      humidity: 35,
+      uvIndex: 6.2,
+      dewPoint: 6.8,
+      locationName: 'Denver, CO (Arid High-Altitude)',
+      timestamp: '2026-10-14T08:00:00Z',
+    },
+    userReport: 'tight_dry',
+    prescribedArchetype: 'pore_clarifying', // Astringent in dry mountain climate
+    satisfactionScore: 2.4,
+  },
+];
